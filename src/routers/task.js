@@ -58,10 +58,14 @@ router.get('/tasks/:id', auth, async (req, res) => {
     const _id = req.params.id
 
     try {
-        const task = await Task.findOne({_id, author: req.user._id})
+        const task = await Task.findOne({_id})
 
         if (!task) {
             return res.status(404).send("Task not found")
+        }
+
+        if(!task.author.equals(req.user._id)) {
+            return res.status(401).send({Error: "Unauthorized access"})
         }
         res.send(task)
     } catch (e) {
@@ -81,18 +85,22 @@ router.patch('/tasks/:id', auth, async (req, res) => {
     }
 
     try {
-        const task = await Task.findOne({ _id: req.params.id, author: req.user._id})
+        const task = await Task.findOne({ _id: req.params.id})
 
         if(!task) {
             return res.status(404).send({ Error: "Task not found" })
         }
 
+        if(!task.author.equals(req.user.id)) {
+            return res.status(401).send({ Error: "Unauthorized access" })
+        }
+        
         updateKeys.forEach((key) => task[key] = req.body[key])
         await task.save()
 
-        res.send(task)
+        return res.send(task)
     } catch (error) {
-        res.status(400).send({Error: "Server Error"})
+        res.status(400).send({Error: "Server Error", error})
     }
 })
 

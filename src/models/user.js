@@ -121,7 +121,6 @@ userSchema.pre('save', async function (next) {
 
 userSchema.pre('deleteOne', { document: true, query: false }, async function (next) {
     const user = this
-    console.log("User Deleted")
     await Task.deleteMany({ author: user._id })
     next()
 })

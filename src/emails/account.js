@@ -20,7 +20,7 @@ const sendWelcomeEmail = (email, name) => {
         subject: "Welcome Email",
         text: `Welcome to my task app, ${name}. Let me know if you have any inquiries.`
     })
-    console.log(`Welcome Email sent to ${name}`)
+    // console.log(`Welcome Email sent to ${name}`)
 }
 
 const sendCancelationEmail = (email, name) => {
@@ -30,7 +30,7 @@ const sendCancelationEmail = (email, name) => {
         subject: "Cancelation Email",
         text: `We are sad to see you go ${name}. If you have the time, share with us the resaon for your account deletion.\nWe hope to see you again.`
     })
-    console.log(`Cancelation Email sent to ${name}`)
+    // console.log(`Cancelation Email sent to ${name}`)
 }
 
 module.exports = {

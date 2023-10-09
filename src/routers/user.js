@@ -37,9 +37,6 @@ router.post('/users', async (req, res) => {
 router.post('/users/login', async (req, res) => {
     try {
         const user = await User.findByEmail(req.body.email, req.body.password)
-        if (!user) {
-            return res.status(404).send({Error: "No user found"})
-        }
         const token = await user.genAuthToken()    
         res.send({ user, token: token })
     } catch (e) {
@@ -76,7 +73,7 @@ router.post('/users/logout/all', auth, async (req, res) => {
 })
 
 
-// Fetches all users using a filter
+// Fetches the user profile
 router.get('/users/me', auth, async (req, res) => {
     res.send(req.user)
 })

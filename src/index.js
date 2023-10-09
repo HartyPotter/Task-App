@@ -1,15 +1,7 @@
-const express = require('express')
-require('./db/mongoose')
-const userRouter = require('./routers/user')
-const taskRouter = require('./routers/task')
 require('dotenv').config({path: './config/dev.env'})
-
-const app = express()
 const port = process.env.PORT
-
-app.use(express.json())
-app.use(userRouter)
-app.use(taskRouter)
+console.log(port)
+const app = require('./app')
 
 app.listen(port, () =>{
     console.log("Server is running on port " + port)
